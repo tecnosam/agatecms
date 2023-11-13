@@ -1,0 +1,31 @@
+
+services:
+  php-apache:
+    tty: true
+    image: php:5.3-apache
+    container_name: php-apache
+    ports:
+      - "80:80"
+    volumes:
+      - ./agatecms:/var/www/html
+    depends_on:
+      - mysql
+    networks:
+      - agate-network
+
+  mysql:
+    image: mysql:5.5
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: agatecmsdb
+      MYSQL_USER: agatecms
+      MYSQL_PASSWORD: passwd
+    networks:
+      - agate-network
+
+networks:
+  agate-network:
+
